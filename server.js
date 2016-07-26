@@ -1,13 +1,12 @@
-var express = require('express'),
-    morgan = require('morgan'),
-    bodyParser = require('body-parser'),
-    mongoose = require('mongoose'),
-    cors = require('cors'),
-    testdb = require('./config/testdb');
+require('dotenv').load();
+var express     = require('express'),
+	morgan      = require('morgan'),
+	bodyParser  = require('body-parser'),
+	mongoose    = require('mongoose'),
+	cors        = require('cors'),
+	testdb      = require('./config/testdb');
 
-    require('dotenv').load();
-
-    // route = require('./server/routes');
+	// route = require('./server/routes');
 
 var port = process.env.PORT || 4000;
 // var port = 4000;
@@ -30,14 +29,15 @@ var app = express();
 //Force HTTPS on heroku
 
 if(process.env.NODE_ENV === 'production') {
-  app.enable("trust proxy");
-  app.use(function(req, res, next) {
-      if(req.secure) {
-         next();
-      } else {
-	res.redirect('https://' + req.headers.host + req.url);
-      }
-});
+    app.enable("trust proxy");
+    app.use(function(req, res, next) {
+	    if(req.secure) {
+		   next();
+	    }
+        else {
+	       res.redirect('https://' + req.headers.host + req.url);
+	    }
+    });
 }
 
 app.use(cors());
@@ -55,16 +55,15 @@ app.use(express.static(__dirname + '/public')); // serving static files like ima
 //configure any route to redirect to angular
 
 app.get('*', function(req, res) {
-    res.sendFile(__dirname + '/public/index.html');
+	res.sendFile(__dirname + '/public/index.html');
 });
-
 
 /**
  * Start Express server
  */
 
 app.listen(port, function() {
-    console.log("Yourtube server Listeening on port", port);
+	console.log("Yourtube server Listeening on port", port);
 });
 
 

@@ -1,7 +1,7 @@
 var mongoose   = require('mongoose'),
     secrets    = require('./secret');
 
-var db = mongoose.connection;
+var db         = mongoose.connection;
 mongoose.connect(secrets.db);
 
 module.exports = {

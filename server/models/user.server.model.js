@@ -1,5 +1,5 @@
 var mongoose     = require('mongoose'),
-		bycrpt 			 = require('bycrpt'),
+		bcrypt 			 = require('bcrypt'),
 		userSchema 	 = mongoose.Schema({
 			fullName: {type: String},
 			email: { type: String, required: true, unique: true, lowercase: true},
@@ -15,8 +15,8 @@ userSchema.pre('save', function(next) {
 				return next();
 		}
 
-		bycrpt.genSalt(10, function(err, salt) {
-				bycrpt.hash(user.password, salt, function(err, hash) {
+		bcrypt.genSalt(10, function(err, salt) {
+				bcrypt.hash(user.password, salt, function(err, hash) {
 						user.password = hash;
 						next();
 				});
@@ -24,10 +24,10 @@ userSchema.pre('save', function(next) {
 });
 
 userSchema.methods.comparePassword = function(password, done) {
-		bycrpt.compare(password, this.password, function(err, isMatch) {
+		bcrypt.compare(password, this.password, function(err, isMatch) {
 				done(err, isMatch);
 		});
 };
 
-module.exports = mongoose.model('User', userSchema, users);
+module.exports = mongoose.model('User', userSchema, 'users');
 

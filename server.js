@@ -6,7 +6,7 @@ var express     = require('express'),
 	cors        = require('cors'),
 	testdb      = require('./config/testdb');
 
-	// route = require('./server/routes');
+	route = require('./server/routes');
 
 var port = process.env.PORT || 4000;
 // var port = 4000;
@@ -50,7 +50,7 @@ app.use(express.static(__dirname + '/public')); // serving static files like ima
  * Routes Configuration
  */
 
-// route(app);
+route(app);
 
 //configure any route to redirect to angular
 

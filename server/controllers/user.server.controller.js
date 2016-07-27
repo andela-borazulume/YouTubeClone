@@ -6,13 +6,13 @@ var User 				= require('../models/user.server.model'),
 
 module.exports = {
 		welcome: function(req, res) {
-				return res.status(200).json({message: "Welcome to my youtube clone"});
+				return res.status(200).json({"message": "Welcome to my youtube clone"});
 		},
 
 		signUpUser: function(req, res) {
 			User.findOne({email : req.body.email}, '+password', function(err, existingUser) {
 					if(existingUser) {
-							return res.status(409).json({message: "Email already exists"});
+							return res.status(409).json({"message": "Email already exists"});
 					}
 
 					var getImage = gravatar.url(req.body.email, {s: '200', r: 'x', d: 'retro'}, true);
@@ -72,5 +72,4 @@ module.exports = {
 
 				});
 		}
-
 };

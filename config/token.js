@@ -1,6 +1,8 @@
 var jwt = require('jwt-simple'),
 		secrets = require('./secret'),
-		moment = require('moment');
+		moment = require('moment'),
+		SHOW_MESSAGE = require('../server/messages'),
+		SHOW_STATUS_CODE = require('../server/statusCode');
 
 
 /*********************************
@@ -24,7 +26,7 @@ function createJWT(user) {
 
 function ensureAuthenticated(req, res, next) {
 	if(!req.header('Authorization')) {
-			return res.status(401).json({message: "Please make sure you have Authorizationin your header"});
+			return res.status(SHOW_STATUS_CODE.STATUS_CODE.UNAUTHORISED).json({message: SHOW_MESSAGE.MESSAGE.USER.AUTHORIZATION_ERROR});
 	}
 
 	//don't know what the split is doing here

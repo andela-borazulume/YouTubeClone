@@ -4,17 +4,17 @@ var User 				= require('../models/user.server.model'),
 		secrets			= require('../../config/secret'),
 		token				= require('../../config/token'),
 		STATUS_CODE = require('../statusCode'),
-		MESSAGE     = require('../message');
+		MESSAGE     = require('../messages');
 
 module.exports = {
 		welcome: function(req, res) {
-				return res.status(STATUS_CODE.OK).json({'message': 'Welcome to my youtube clone'});
+				return res.status(STATUS_CODE.OK).json({'message': MESSAGE.WELCOME});
 		},
 
 		signUpUser: function(req, res) {
 			User.findOne({email : req.body.email}, '+password', function(err, existingUser) {
 					if(err) {
-							return res.status(STATUS_CODE.BAD_REQUEST).json({message: MESSAGE.});
+							return res.status(STATUS_CODE.BAD_REQUEST).json({message: MESSAGE.BAD_REQUEST});
 					}
 					if(existingUser) {
 							return res.status(STATUS_CODE.CONFLICT).json({'message': 'Email already exists'});

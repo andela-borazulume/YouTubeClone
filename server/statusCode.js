@@ -1,4 +1,4 @@
-var STATUS_CODE = module.exports = {
+var STATUS_CODE = {
       OK: 200,
       CREATED: 201,
       NO_CONTENT: 204,
@@ -7,3 +7,5 @@ var STATUS_CODE = module.exports = {
       NOT_FOUND: 404,
       CONFLICT: 409
     };
+
+exports.STATUS_CODE = STATUS_CODE;

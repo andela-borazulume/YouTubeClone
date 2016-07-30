@@ -37,11 +37,11 @@ function ensureAuthenticated(req, res, next) {
 		payload = jwt.decode(token, secrets.TOKEN_SECRET);
 	} 
 	catch(err) {
-		return res.status(401).send({message: err.message});
+		return res.status(SHOW_STATUS_CODE.STATUS_CODE.UNAUTHORISED).send({message: err.message});
 	}
 
 	if(payload.exp <= moment().unix()) {
-		return res.status(401).json({message: "Token has expired!"});
+		return res.status(SHOW_STATUS_CODE.STATUS_CODE.UNAUTHORISED).json({message: SHOW_MESSAGE.MESSAGE.USER.EXPIRE_TOKEN});
 	}
 
 	req.user = payload.sub;

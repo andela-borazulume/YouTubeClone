@@ -4,20 +4,20 @@ var User 				= require('../models/user.server.model'),
 		secrets			= require('../../config/secret'),
 		token				= require('../../config/token'),
 		STATUS_CODE = require('../statusCode'),
-		MESSAGE     = require('../messages');
+		SHOW_MESSAGE     = require('../messages');
 
 module.exports = {
 		welcome: function(req, res) {
-				return res.status(STATUS_CODE.OK).json({'message': MESSAGE.WELCOME});
+				return res.status(SHOW_STATUS_CODE.STATUS_CODE.OK).json({message: SHOW_MESSAGE.MESSAGE.WELCOME});
 		},
 
 		signUpUser: function(req, res) {
 			User.findOne({email : req.body.email}, '+password', function(err, existingUser) {
 					if(err) {
-							return res.status(STATUS_CODE.BAD_REQUEST).json({message: MESSAGE.BAD_REQUEST});
+							return res.status(SHOW_STATUS_CODE.STATUS_CODE.BAD_REQUEST).json({message: SHOW_MESSAGE.MESSAGE.USER.BAD_REQUEST});
 					}
 					if(existingUser) {
-							return res.status(STATUS_CODE.CONFLICT).json({'message': 'Email already exists'});
+							return res.status(SHOW_STATUS_CODE.STATUS_CODE.CONFLICT).json({message: SHOW_MESSAGE.MESSAGE.USER.EMAIL_EXISTS});
 					}
 
 					var getImage = gravatar.url(req.body.email, {s: '200', r: 'x', d: 'retro'}, true);
@@ -31,7 +31,7 @@ module.exports = {
 
 					user.save(function(err, result) {
 							if(err) {
-									return res.status(500).json({message: err.message});
+									return res.status(SHOW_STATUS_CODE.STATUS_CODE.INTERNAL_ERROR).json({message: err.message});
 							} 
 							res.send({token: token.createJWT(result)});
 					});
@@ -47,7 +47,7 @@ module.exports = {
 		updateLoggedInUser: function(req, res) {
 			User.findById(req.user, function(err, user) {
 					if(!user) {
-							return res.status(400).json({message: 'User not found'});
+							return res.status(SHOW_STATUS_CODE.STATUS_CODE.BAD_REQUEST).json({message: SHOW_MESSAGE.MESSAGE.DOES_NOT_EXIST});
 					}
 
 					user.fullName = req.body.fullName || user.fullName;
@@ -55,7 +55,7 @@ module.exports = {
 
 					user.save(function(err, result) {
 							if(err) {
-									return res.status(500).json({message: err.message});
+									return res.status(SHOW_STATUS_CODE.STATUS_CODE.BAD_REQUEST).json({message: err.message});
 							} 
 							res.status(200).send({message: 'Profile updated'});
 					});

@@ -5,7 +5,8 @@ var STATUS_CODE = {
       BAD_REQUEST: 400,
       UNAUTHORISED: 401,
       NOT_FOUND: 404,
-      CONFLICT: 409
+      CONFLICT: 409,
+      INTERNAL_ERROR: 500
     };
 
 exports.STATUS_CODE = STATUS_CODE;

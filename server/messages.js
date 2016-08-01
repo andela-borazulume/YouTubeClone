@@ -6,7 +6,9 @@ var MESSAGE = {
         DOES_NOT_EXIST: 'User does not exist',
         BAD_REQUEST: 'Bad request',
         AUTHORIZATION_ERROR: 'Please make sure you have Authorizationin your header',
-        EXPIRE_TOKEN: "Token has expired!"
+        EXPIRE_TOKEN: "Token has expired!",
+        INVALID_PASSWORD: "Invalid password",
+        UPDATE_PROFILE: "Profile has been updated"
       }
 };
 

@@ -57,7 +57,7 @@ module.exports = {
 							if(err) {
 									return res.status(SHOW_STATUS_CODE.STATUS_CODE.BAD_REQUEST).json({message: err.message});
 							} 
-							res.status(200).send({message: 'Profile updated'});
+							res.status(SHOW_STATUS_CODE.STATUS_CODE.OK).send({message: SHOW_MESSAGE.MESSAGE.UPDATE_PROFILE});
 					});
 			});
 		},
@@ -65,12 +65,12 @@ module.exports = {
 		authenticateUser: function(req, res) {
 				User.findOne({email: req.body.email}, function(err, user) {
 						if(!user) {
-								return res.status(401).json({message: 'Invalid email'});
+								return res.status(SHOW_STATUS_CODE.STATUS_CODE.UNAUTHORISED).json({message: SHOW_MESSAGE.MESSAGE.INVALID_PASSWORD});
 						}
 
 						user.comparePassword(req.body.password, function(err, isMatch) {
 								if(!isMatch) {
-										return res.status(401).json({message: 'nvalid password'});
+										return res.status(SHOW_STATUS_CODE.STATUS_CODE.UNAUTHORISED).json({message: SHOW_MESSAGE.MESSAGE.INVALID_PASSWORD});
 								}
 								res.send({token: token.createJWT(user)});
 						});
